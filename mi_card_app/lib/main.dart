@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.teal,
         body: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const CircleAvatar(
                 radius: 50,
@@ -37,62 +38,58 @@ class MyApp extends StatelessWidget {
               const Text(
                 "PROFESSIONAL FOOTBALLER",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   color: Colors.white70,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'SourceSansPro_custom_font',
                   letterSpacing: 2,
                 ),
               ),
-              Container(
-                color: Colors.white,
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.phone,
-                      color: Colors.teal,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      "+44 123 456 789",
-                      style: TextStyle(
-                          color: Colors.teal[800],
-                          fontSize: 18,
-                          fontFamily: 'SourceSansPro_custom_font',
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
+              SizedBox(
+                height: 10,
+                width: 150,
+                child: Divider(
+                  //divider adds a 1 pixel horizontal rule.
+                  color: Colors.teal[100],
                 ),
               ),
-              Container(
+              Card(
                 color: Colors.white,
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.email,
-                      color: Colors.teal,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      "messi10@gmail.com",
-                      style: TextStyle(
+                child: ListTile(
+                  leading: Icon(
+                    Icons.phone,
+                    color: Colors.teal,
+                  ),
+                  title: Text(
+                    "+44 123 456 789",
+                    style: TextStyle(
                         color: Colors.teal[800],
                         fontSize: 18,
                         fontFamily: 'SourceSansPro_custom_font',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ],
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              )
+              ),
+              Card(
+                color: Colors.white,
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.email,
+                    color: Colors.teal,
+                  ),
+                  title: Text(
+                    "messi10@gmail.com",
+                    style: TextStyle(
+                      color: Colors.teal[800],
+                      fontSize: 18,
+                      fontFamily: 'SourceSansPro_custom_font',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -122,6 +119,27 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
+
+// Row(
+// children: [
+// Icon(
+// Icons.email,
+// color: Colors.teal,
+// ),
+// SizedBox(
+// width: 15,
+// ),
+// Text(
+// "messi10@gmail.com",
+// style: TextStyle(
+// color: Colors.teal[800],
+// fontSize: 18,
+// fontFamily: 'SourceSansPro_custom_font',
+// fontWeight: FontWeight.bold,
+// ),
+// )
+// ],
+// )
 
 class MyAppRowsAndColumn extends StatelessWidget {
   const MyAppRowsAndColumn({Key? key}) : super(key: key);
