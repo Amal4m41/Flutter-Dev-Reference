@@ -33,7 +33,7 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  List<Icon> iconsList = [];
+  List<Expanded> iconsList = [];
   int score = 0;
 
   @override
@@ -101,28 +101,66 @@ class _QuizState extends State<Quiz> {
 
   void checkAnswer(bool clickedAns) {
     setState(() {
-      if (questionBank.isLastQuestion()) {
-        // print("Last question reached!");
-        Alert(
-                context: context,
-                title: "Score : $score/${questionBank.getNumberOfQuestions()}",
-                desc: "Flutter is awesome.")
-            .show();
-      } else {
+      if (!questionBank.isLastQuestion()) {
         // iconsList.add((clickedAns == questionBank.getQuestionAns())
         //     ? Icon(Icons.check, color: Colors.green)
         //     : Icon(Icons.close, color: Colors.red));
         if (clickedAns == questionBank.getQuestionAns()) {
-          iconsList.add(Icon(Icons.check, color: Colors.green));
+          iconsList
+              .add(Expanded(child: Icon(Icons.check, color: Colors.green)));
           score += 1;
         } else {
-          iconsList.add(Icon(Icons.close, color: Colors.red));
+          iconsList.add(Expanded(child: Icon(Icons.close, color: Colors.red)));
         }
       }
 
       questionBank
           .moveToNextQuestion(); //updates the question counter and this being inside setState() will redraw the
       //UI elements this update affects.
+      if (questionBank.isLastQuestion()) {
+        // print("Last question reached!");
+        showQuizOverDialog();
+      }
+    });
+  }
+
+  void showQuizOverDialog() {
+    //show dialog with score and restart option after quiz is finished.
+    Alert(
+      context: context,
+      type: AlertType.success,
+      title: "Hey you have reached the end!",
+      desc: "Score : $score/${questionBank.getNumberOfQuestions()}",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Restart",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            reset();
+            Navigator.pop(context);
+          },
+          color: Colors.green,
+        ),
+        DialogButton(
+          child: Text(
+            "Cancel",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          color: Colors.red,
+        ),
+      ],
+    ).show();
+  }
+
+  void reset() {
+    //reset all the values related to the quiz.
+    setState(() {
+      questionBank.reset();
+      score = 0;
+      iconsList = [];
     });
   }
 }

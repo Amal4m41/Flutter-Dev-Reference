@@ -7,28 +7,26 @@ class QuestionBank {
 
   List<Question> _questionsList = [
     Question(
-        question: "The world’s largest continent is Antarctica.",
-        answer: false),
+        question: "The world’s largest continent is Antarctica.", ans: false),
     Question(
-        question: "The first domesticated animal was the horse.",
-        answer: false),
+        question: "The first domesticated animal was the horse.", ans: false),
     Question(
         question:
             "Most of the world’s coffee in the world is produced in Brazil.",
-        answer: true),
-    Question(question: "The Bible has 74 books in total.", answer: false),
+        ans: true),
+    Question(question: "The Bible has 74 books in total.", ans: false),
     Question(
         question:
             "The first person to portray James Bond in a film was Sean Connery.",
-        answer: true),
+        ans: true),
     Question(
         question:
             "The title of the first 3D film to be released worldwide was Forbidden Lover.",
-        answer: false),
+        ans: false),
     Question(
         question:
             "The word “yoga” is derived from a Sanskrit word meaning posture.",
-        answer: false),
+        ans: false),
   ];
 
   String getQuestionText() {
@@ -51,5 +49,10 @@ class QuestionBank {
     } else {
       _isLastQuestionFlag = true;
     }
+  }
+
+  void reset() {
+    _questionCounter = 0;
+    _isLastQuestionFlag = false;
   }
 }
