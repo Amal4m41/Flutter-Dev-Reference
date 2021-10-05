@@ -26,13 +26,13 @@ class StoryPage extends StatefulWidget {
 }
 
 class _StoryPageState extends State<StoryPage> {
-  @override
   void updateStoryState({required int choiceNumber}) {
     setState(() {
       storyBrain.nextStory(choiceNumber: choiceNumber);
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
