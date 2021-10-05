@@ -1,4 +1,10 @@
+import 'package:bmi_calculator_app/reusable_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'icon_content.dart';
+
+const double bmiCalculateButtonHeight = 80.0;
 
 class InputPage extends StatefulWidget {
   const InputPage({Key? key}) : super(key: key);
@@ -20,10 +26,19 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(),
+                  child: ReusableCard(
+                    cardChild: IconContent(
+                      cardIcon: FontAwesomeIcons.mars,
+                      cardText: "MALE",
+                    ),
+                  ),
                 ),
                 Expanded(
-                  child: ReusableCard(),
+                  child: ReusableCard(
+                      cardChild: IconContent(
+                    cardIcon: FontAwesomeIcons.venus,
+                    cardText: "FEMALE",
+                  )),
                 ),
               ],
             ),
@@ -43,26 +58,24 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
+          Container(
+            child: Center(
+              child: Text(
+                "CALCULATE YOUR BMI",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  letterSpacing: 2,
+                  wordSpacing: 3,
+                ),
+              ),
+            ),
+            margin: EdgeInsets.only(top: 10),
+            color: Color(0xf0EB1555),
+            height: bmiCalculateButtonHeight,
+            width: double.infinity,
+          )
         ],
-      ),
-    );
-  }
-}
-
-class ReusableCard extends StatelessWidget {
-  Color cardColor;
-
-  ReusableCard(
-      {this.cardColor = const Color(
-          0xff1D1F33)}); //providing a default value for the constructor parameter.
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: cardColor,
-        borderRadius: BorderRadius.circular(10),
       ),
     );
   }
