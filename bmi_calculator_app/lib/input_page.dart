@@ -1,3 +1,4 @@
+import 'package:bmi_calculator_app/calculator_brain.dart';
 import 'package:bmi_calculator_app/reusable_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -220,35 +221,29 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: () {
+          BottomScreenButton(
+            text: "CALCULATE YOUR BMI",
+            actionOnPress: () {
+              double bmi = calculateBMI(
+                height: currentSliderValueHeight.toInt(),
+                weight: weight,
+              );
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ResultPage(),
+                  builder: (context) => ResultPage(
+                    //A decimal-point string-representation of this number.
+                    bmi: bmi.toStringAsFixed(1),
+                    result: getResult(bmi: bmi),
+                    resultDescription: getDescription(bmi: bmi),
+                  ),
                 ),
               );
               print("HELLOW");
               // Navigator.pushNamed(context, '/result');
             },
-            child: Container(
-              child: Center(
-                child: Text(
-                  "CALCULATE YOUR BMI",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    letterSpacing: 2,
-                    wordSpacing: 3,
-                  ),
-                ),
-              ),
-              margin: EdgeInsets.only(top: 10),
-              color: Color(0xf0EB1555),
-              height: kCalculateBmiButtonHeight,
-              width: double.infinity,
-            ),
-          )
+          ),
         ],
       ),
     );
@@ -278,6 +273,40 @@ class RoundIconButton extends StatelessWidget {
       constraints: BoxConstraints.tightFor(
         width: 56.0,
         height: 56.0,
+      ),
+    );
+  }
+}
+
+class BottomScreenButton extends StatelessWidget {
+  final String text;
+  final onPressCallback actionOnPress;
+
+  BottomScreenButton({
+    required this.text,
+    required this.actionOnPress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: actionOnPress,
+      child: Container(
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              letterSpacing: 2,
+              wordSpacing: 3,
+            ),
+          ),
+        ),
+        margin: EdgeInsets.only(top: 10),
+        color: Color(0xf0EB1555),
+        height: kCalculateBmiButtonHeight,
+        width: double.infinity,
       ),
     );
   }
