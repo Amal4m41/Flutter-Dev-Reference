@@ -5,6 +5,7 @@ import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'constants.dart';
+import 'results_page.dart';
 
 enum enum_Gender {
   //defining  a list of named constants using enum for gender.
@@ -219,22 +220,34 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            child: Center(
-              child: Text(
-                "CALCULATE YOUR BMI",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  letterSpacing: 2,
-                  wordSpacing: 3,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultPage(),
+                ),
+              );
+              print("HELLOW");
+              // Navigator.pushNamed(context, '/result');
+            },
+            child: Container(
+              child: Center(
+                child: Text(
+                  "CALCULATE YOUR BMI",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    letterSpacing: 2,
+                    wordSpacing: 3,
+                  ),
                 ),
               ),
+              margin: EdgeInsets.only(top: 10),
+              color: Color(0xf0EB1555),
+              height: kCalculateBmiButtonHeight,
+              width: double.infinity,
             ),
-            margin: EdgeInsets.only(top: 10),
-            color: Color(0xf0EB1555),
-            height: kCalculateBmiButtonHeight,
-            width: double.infinity,
           )
         ],
       ),
@@ -242,6 +255,8 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
+//Composing(using basic widgets to build our own widgets, rather than using an existing widget and overriding it's properties)
+// a custom widget
 class RoundIconButton extends StatelessWidget {
   final IconData icon;
   final onPressCallback actionOnPress;
