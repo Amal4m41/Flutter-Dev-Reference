@@ -1,12 +1,14 @@
 import 'package:bmi_calculator_app/calculator_brain.dart';
-import 'package:bmi_calculator_app/reusable_card.dart';
+import 'package:bmi_calculator_app/components/reusable_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'icon_content.dart';
-import 'constants.dart';
+import '../components/icon_content.dart';
+import '../utils/constants.dart';
 import 'results_page.dart';
+import 'package:bmi_calculator_app/components/bottom_screen_button.dart';
+import 'package:bmi_calculator_app/components/round_icon_button.dart';
 
 enum enum_Gender {
   //defining  a list of named constants using enum for gender.
@@ -245,68 +247,6 @@ class _InputPageState extends State<InputPage> {
             },
           ),
         ],
-      ),
-    );
-  }
-}
-
-//Composing(using basic widgets to build our own widgets, rather than using an existing widget and overriding it's properties)
-// a custom widget
-class RoundIconButton extends StatelessWidget {
-  final IconData icon;
-  final onPressCallback actionOnPress;
-
-  RoundIconButton({required this.icon, required this.actionOnPress});
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: actionOnPress,
-      child: Icon(
-        icon,
-        color: Colors.white,
-        size: 40,
-      ),
-      fillColor: Color(0xff4C4F5e),
-      shape: CircleBorder(),
-      elevation: 6,
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-    );
-  }
-}
-
-class BottomScreenButton extends StatelessWidget {
-  final String text;
-  final onPressCallback actionOnPress;
-
-  BottomScreenButton({
-    required this.text,
-    required this.actionOnPress,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: actionOnPress,
-      child: Container(
-        child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              letterSpacing: 2,
-              wordSpacing: 3,
-            ),
-          ),
-        ),
-        margin: EdgeInsets.only(top: 10),
-        color: Color(0xf0EB1555),
-        height: kCalculateBmiButtonHeight,
-        width: double.infinity,
       ),
     );
   }

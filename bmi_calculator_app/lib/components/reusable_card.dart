@@ -1,8 +1,6 @@
-import 'package:bmi_calculator_app/icon_content.dart';
+import 'package:bmi_calculator_app/components/icon_content.dart';
 import 'package:flutter/material.dart';
-
-// Signature of callbacks that have no arguments and return no data.
-typedef onPressCallback = void Function();
+import '../utils/constants.dart';
 
 //StatelessWidgets are immutable, once they're created they can't be changed, therefore whenever ever there's a change in it's
 //property for example color, then the object is destroyed and a new object of that widget with the new color is created and
