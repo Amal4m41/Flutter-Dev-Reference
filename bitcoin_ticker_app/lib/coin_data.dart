@@ -1,4 +1,6 @@
 import 'package:bitcoin_ticker_app/networking.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 const List<String> currenciesList = [
   'AUD',
@@ -33,13 +35,25 @@ const List<String> cryptoList = [
 const baseUrlCoinApi = "https://rest.coinapi.io/v1/exchangerate";
 
 class CoinData {
-  Future getCoinData(String cryptoCoin, String currency) async {
-    NetworkHelper networkHelper = NetworkHelper(
-        url: "$baseUrlCoinApi/$cryptoCoin/$currency?apikey=$apiKey");
+  Future getCoinData(String currency) async {
+    Map<String, String> cryptoPrices = Map();
 
-    var data = await networkHelper.getData();
+    for (String crypto in cryptoList) {
+      http.Response response = await http
+          .get(Uri.parse("$baseUrlCoinApi/$crypto/$currency?apikey=$apikey"));
 
-    print(data);
-    return data;
+      if (response.statusCode == 200) {
+        String body = response.body;
+
+        //Parses the string and returns the resulting Json object
+        Map<String, dynamic> decodedJson = jsonDecode(body);
+        cryptoPrices[crypto] =
+            (decodedJson["rate"] as double).toStringAsFixed(2);
+      } else {
+        print(response.statusCode);
+      }
+    }
+
+    return cryptoPrices;
   }
 }

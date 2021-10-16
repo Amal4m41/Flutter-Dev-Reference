@@ -15,38 +15,33 @@ class PriceScreen extends StatefulWidget {
 class _PriceScreenState extends State<PriceScreen> {
   String dropDownValueCurrency = "USD";
   late CoinData coinData;
+  bool isWaiting = false;
 
   Map<String, String> priceList = Map<String, String>();
-  String bPrice = "🔃";
-  String lPrice = "🔃";
-  String ePrice = "🔃";
 
-  // Future<void> getExchangeRate() async {
-  //   for (String crypto in cryptoList) {
-  //     var data = await coinData.getCoinData(crypto, dropDownValueCurrency);
-  //     double rate = data["rate"];
-  //     priceList[crypto] = rate.toStringAsFixed(2);
-  //   }
-  // }
-  //
-  // List<PriceCard> getListOfCards() {
-  //   List<PriceCard> cards = [];
-  //   for (String crypto in cryptoList) {
-  //     cards.add(PriceCard(text: "1 $crypto = $dropDownValueCurrency"));
-  //   }
-  //   return cards;
-  // }
+  List<PriceCard> getListOfCards() {
+    List<PriceCard> cards = [];
+    for (String crypto in priceList.keys) {
+      cards.add(PriceCard(
+          text:
+              "1 $crypto = ${isWaiting ? '...' : priceList[crypto]} $dropDownValueCurrency"));
+    }
+
+    return cards;
+  }
 
   void updateUI(String userSelectedCurrency) async {
-    var b = await coinData.getCoinData("BTC", userSelectedCurrency);
-    var e = await coinData.getCoinData("ETH", userSelectedCurrency);
-    var l = await coinData.getCoinData("LTC", userSelectedCurrency);
-
     setState(() {
-      bPrice = (b["rate"] as double).toStringAsFixed(2);
-      ePrice = (e["rate"] as double).toStringAsFixed(2);
-      lPrice = (l["rate"] as double).toStringAsFixed(2);
+      isWaiting = true;
     });
+    var data = await coinData.getCoinData(userSelectedCurrency);
+
+    if (data != null) {
+      setState(() {
+        priceList = data;
+        isWaiting = false;
+      });
+    }
   }
 
   @override
@@ -71,11 +66,7 @@ class _PriceScreenState extends State<PriceScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               // children: getListOfCards(),
-              children: [
-                PriceCard(text: "1 BTC = $bPrice $dropDownValueCurrency"),
-                PriceCard(text: "1 ETH = $ePrice $dropDownValueCurrency"),
-                PriceCard(text: "1 LTC = $lPrice $dropDownValueCurrency"),
-              ],
+              children: getListOfCards(),
             ),
           ),
           Container(
@@ -93,9 +84,6 @@ class _PriceScreenState extends State<PriceScreen> {
                         if (value != null) {
                           updateUI(value);
                           setState(() {
-                            bPrice = "🔃";
-                            lPrice = "🔃";
-                            ePrice = "🔃";
                             dropDownValueCurrency = value;
                           });
                         }
