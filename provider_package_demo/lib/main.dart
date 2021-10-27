@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_package_demo/providers/text_field_provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => TextFieldProvider())],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,45 +21,43 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(data),
+          title: Text(context.watch<TextFieldProvider>().getTextValue()),
         ),
-        body: Level1(data),
+        body: Level1(),
       ),
     );
   }
 }
 
 class Level1 extends StatelessWidget {
-  final String data;
-  Level1(String this.data);
-
   @override
   Widget build(BuildContext context) {
-    return Level2(data);
+    return Level2();
   }
 }
 
 class Level2 extends StatelessWidget {
-  final String data;
-  Level2(String this.data);
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(),
-        Level3(data),
+        Container(
+          child: TextField(
+            onChanged: (String value) {
+              //Accessing the provider methods.
+              context.read<TextFieldProvider>().setTextValue(value);
+            },
+          ),
+        ),
+        Level3(),
       ],
     );
   }
 }
 
 class Level3 extends StatelessWidget {
-  final String data;
-  Level3(String this.data);
-
   @override
   Widget build(BuildContext context) {
-    return Text(data);
+    return Text(context.watch<TextFieldProvider>().getTextValue());
   }
 }
