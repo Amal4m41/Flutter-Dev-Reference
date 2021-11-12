@@ -31,12 +31,12 @@ class DemoApp extends StatefulWidget {
 class _DemoAppState extends State<DemoApp> {
   int value = 0;
 
-  void simpleCallback(int val) {
-    print(value);
-    print(val);
-    setState(() {});
-    myDummyFunction();
-  }
+  // void simpleCallback(int val) {
+  //   print(value);
+  //   print(val);
+  //   setState(() {});
+  //   myDummyFunction();
+  // }
 
   void myDummyFunction() {
     print("IN DEMO APP");
@@ -58,7 +58,13 @@ class _DemoAppState extends State<DemoApp> {
                 },
                 child: Text("ADD"),
               ),
-              AStateLesssWidget(simpleCallback),
+              // AStateLesssWidget(simpleCallback),
+              AStateLesssWidget((int val) {
+                print(value);
+                print(val);
+                setState(() {});
+                myDummyFunction();
+              }),
             ],
           ),
         ),
