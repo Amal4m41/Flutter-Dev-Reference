@@ -28,6 +28,12 @@ class SettingsScreen extends StatelessWidget {
                 FiltChipsWidget(),
               ],
             ),
+            MaterialButton(
+              onPressed: () {
+                context.read<SettingsProvider>().forFun();
+              },
+              child: Text("CLICK HERE"),
+            ),
           ],
         ),
       ),

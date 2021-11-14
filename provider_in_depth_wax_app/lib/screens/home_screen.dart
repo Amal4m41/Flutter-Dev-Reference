@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Container(
         child: Center(
-          //will only update/rebuild (the nearest build method) this widget if this specific value changes.
+          //will only update/rebuild (the nearest build method) this widget if this specific value CHANGES.
           child: Text(context.select((SettingsProvider value) => value.units)),
         ),
       ),

@@ -22,6 +22,11 @@ class SettingsProvider extends ChangeNotifier {
     savePreferences();
   }
 
+  void forFun() {
+    _units = "Imperial";
+    // notifyListeners();
+  }
+
   void editWaxLines(String value) {
     //To remove/add waxlines from the list.
     _waxLines.contains(value) ? _waxLines.remove(value) : _waxLines.add(value);
@@ -44,7 +49,7 @@ class SettingsProvider extends ChangeNotifier {
     List<String>? waxLinesValue = prefs.getStringList("waxLines");
 
     //if the values are not null (i.e. sharedPreference was set before) then take that as the default values.
-    if (unitsValue != null) setUnits(unitsValue);
     if (waxLinesValue != null) _waxLines = waxLinesValue;
+    if (unitsValue != null) setUnits(unitsValue);
   }
 }

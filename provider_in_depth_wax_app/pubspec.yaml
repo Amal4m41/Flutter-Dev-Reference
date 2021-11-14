@@ -45,9 +45,16 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
+
   provider: ^6.0.1
+
   #for preserving settings related data.
   shared_preferences: ^2.0.8
+
+  #Firebase related
+  firebase_core: ^1.7.0
+#  firebase_auth: ^3.1.3
+  cloud_firestore: ^2.5.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
