@@ -22,11 +22,6 @@ class SettingsProvider extends ChangeNotifier {
     savePreferences();
   }
 
-  void forFun() {
-    _units = "Imperial";
-    // notifyListeners();
-  }
-
   void editWaxLines(String value) {
     //To remove/add waxlines from the list.
     _waxLines.contains(value) ? _waxLines.remove(value) : _waxLines.add(value);

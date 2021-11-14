@@ -8,11 +8,13 @@ class FirestoreService {
   FirebaseFirestore _firestoreDB = FirebaseFirestore.instance;
 
   Stream<List<Report>> getReports() {
+    print("CALLED");
     return _firestoreDB
         .collection('reports')
-        .orderBy('timestamp', descending: true)
+        .orderBy('timeStamp', descending: true)
         .snapshots()
-        .map((QuerySnapshot value) {
+        .map<List<Report>>((QuerySnapshot value) {
+      print("YES");
       List<Report> reports = [];
       for (QueryDocumentSnapshot doc in value.docs) {
         if (doc.data() != null) {
