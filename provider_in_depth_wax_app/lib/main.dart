@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider_in_depth_wax_app/models/employee.dart';
 import 'package:provider_in_depth_wax_app/providers/settings_provider.dart';
 import 'package:provider_in_depth_wax_app/screens/home_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:provider_in_depth_wax_app/services/employee_service.dart';
 import 'package:provider_in_depth_wax_app/services/firestore_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'models/report.dart';
@@ -14,6 +16,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final _fireStoreService = FirestoreService();
+  final _employeeService = EmployeeService();
 
   // This widget is the root of your application.
   @override
@@ -31,6 +34,13 @@ class MyApp extends StatelessWidget {
                   line: 'Red',
                   timeStamp: DateTime.now().toIso8601String())
             ]),
+        FutureProvider<List<Employee>?>(
+          create: (BuildContext context) => _employeeService.fetchEmployees(),
+          initialData: null,
+          catchError: (context, error) {
+            print(error.toString());
+          },
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

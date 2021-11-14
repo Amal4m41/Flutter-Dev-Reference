@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:provider_in_depth_wax_app/models/employee.dart';
 import 'package:provider_in_depth_wax_app/models/report.dart';
 import 'package:date_format/date_format.dart';
 import 'package:provider_in_depth_wax_app/providers/settings_provider.dart';
 import 'package:provider_in_depth_wax_app/screens/settings_screen.dart';
-import 'package:provider_in_depth_wax_app/services/firestore_service.dart';
+import 'package:provider_in_depth_wax_app/services/employee_service.dart';
+
+import 'employees_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final String title;
@@ -18,23 +21,32 @@ class HomeScreen extends StatelessWidget {
         title: Text(title),
         centerTitle: true,
         actions: [
-          InkWell(
-            onTap: () {
+          IconButton(
+            onPressed: () {
+              navigateTo(context, EmployeesScreen());
+            },
+            icon: Icon(Icons.supervised_user_circle),
+          ),
+          IconButton(
+            onPressed: () {
               navigateTo(context, SettingsScreen());
             },
-            child: Icon(Icons.settings),
+            icon: Icon(Icons.settings),
           ),
-          SizedBox(width: 10),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
+        // onPressed: () async {
+        //   try {
+        //     await FirestoreService().addReport();
+        //   } catch (e) {
+        //     print("ERROR : $e");
+        //   }
+        // },
         onPressed: () async {
-          try {
-            await FirestoreService().addReport();
-          } catch (e) {
-            print("ERROR : $e");
-          }
+          var result = await EmployeeService().fetchEmployees();
+          print(result);
         },
       ),
       body: Container(
@@ -43,6 +55,20 @@ class HomeScreen extends StatelessWidget {
         // child: Text(context.select((SettingsProvider value) => value.units)),
         // ),
         child: ListViewReport(),
+        // child: Column(
+        //   children: [
+        //     Container(
+        //       child: ListViewReport(),
+        //       height: MediaQuery.of(context).size.height - 200,
+        //       width: MediaQuery.of(context).size.width,
+        //     ),
+        //     Container(
+        //       child: ListViewEmployee(),
+        //       height: 110,
+        //       width: MediaQuery.of(context).size.width,
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }
@@ -75,6 +101,35 @@ class ListViewReport extends StatelessWidget {
                 DateTime.parse(item.timeStamp), [h, ':', nn, ' ', am])),
           );
         });
+  }
+}
+
+class ListViewEmployee extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    //Access the future provider.
+    List<Employee>? empList = Provider.of<List<Employee>?>(context);
+
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        child: empList == null
+            ? Center(child: CircularProgressIndicator())
+            : ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: empList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Employee item = empList[index];
+                  return ListTile(
+                    leading: Text(item.id.toString()),
+                    title: Text(item.name),
+                    subtitle: Text(item.email),
+                    trailing: Text(item.phone),
+                  );
+                },
+              ),
+      ),
+    );
   }
 }
 
