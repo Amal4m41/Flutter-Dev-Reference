@@ -6,6 +6,7 @@ import 'package:date_format/date_format.dart';
 import 'package:provider_in_depth_wax_app/providers/settings_provider.dart';
 import 'package:provider_in_depth_wax_app/screens/settings_screen.dart';
 import 'package:provider_in_depth_wax_app/services/employee_service.dart';
+import 'package:provider_in_depth_wax_app/services/firestore_service.dart';
 
 import 'employees_screen.dart';
 
@@ -37,17 +38,17 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        // onPressed: () async {
-        //   try {
-        //     await FirestoreService().addReport();
-        //   } catch (e) {
-        //     print("ERROR : $e");
-        //   }
-        // },
         onPressed: () async {
-          var result = await EmployeeService().fetchEmployees();
-          print(result);
+          try {
+            await FirestoreService().addReport();
+          } catch (e) {
+            print("ERROR : $e");
+          }
         },
+        // onPressed: () async {
+        //   var result = await EmployeeService().fetchEmployees();
+        //   print(result);
+        // },
       ),
       body: Container(
         // child: Center(
@@ -74,6 +75,8 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+//This listview report does a similar job to that of a streambuilder given that now we can access the same stream value,
+//for any children of the MyApp widget.
 class ListViewReport extends StatelessWidget {
   const ListViewReport({Key? key}) : super(key: key);
 

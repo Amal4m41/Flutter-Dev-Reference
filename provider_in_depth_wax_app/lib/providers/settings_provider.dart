@@ -6,6 +6,7 @@ class SettingsProvider extends ChangeNotifier {
   late List<String> _waxLines;
 
   SettingsProvider() {
+    print("SETTINGS PROVIDER");
     _units = "Metric";
     _waxLines = ["Swix", "Toko"];
     loadPreferences();

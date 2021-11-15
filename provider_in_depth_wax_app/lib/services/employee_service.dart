@@ -5,9 +5,11 @@ import 'package:provider_in_depth_wax_app/models/employee.dart';
 
 class EmployeeService {
   Future<List<Employee>?> fetchEmployees() async {
+    print("FETCH EMPLOYEES");
     http.Response response =
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
 
+    print("FINISHED FETCHING");
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
       // print(jsonResponse.runtimeType);
@@ -23,9 +25,11 @@ class EmployeeService {
   }
 
   Future<Employee?> fetchEmployeeDetails(int id) async {
+    print("FETCH EMPLOYEE details");
     http.Response response = await http
         .get(Uri.parse('https://jsonplaceholder.typicode.com/users/$id'));
 
+    print("FETCH EMPLOYEE details finished");
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
       // print(jsonResponse.runtimeType);

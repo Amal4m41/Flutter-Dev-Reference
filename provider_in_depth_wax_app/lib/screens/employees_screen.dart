@@ -8,6 +8,7 @@ import 'employee_details_screen.dart';
 class EmployeesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("EMPLOYEE SCREEN BUILD");
     //Access the future provider.
     List<Employee>? empList = Provider.of<List<Employee>?>(context);
 
