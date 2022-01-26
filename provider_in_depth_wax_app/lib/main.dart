@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
         FutureProvider<List<Employee>?>(
           create: (BuildContext context) => _employeeService.fetchEmployees(),
           initialData: null,
+          lazy: true,
           catchError: (context, error) {
             print(error.toString());
           },

@@ -2,95 +2,47 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: DemoApp(),
-    );
-  }
-}
-
-class DemoApp extends StatefulWidget {
-  DemoApp({Key? key}) : super(key: key);
-
-  @override
-  State<DemoApp> createState() => _DemoAppState();
-}
-
-class _DemoAppState extends State<DemoApp> {
-  int value = 0;
-
-  // void simpleCallback(int val) {
-  //   print(value);
-  //   print(val);
-  //   setState(() {});
-  //   myDummyFunction();
-  // }
-
-  void myDummyFunction() {
-    print("IN DEMO APP");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print("DEMO APP BUILD");
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          color: Colors.red.shade100,
-          child: Column(
-            children: [
-              Text(value.toString()),
-              MaterialButton(
-                onPressed: () {
-                  value++;
-                },
-                child: Text("ADD"),
-              ),
-              // AStateLesssWidget(simpleCallback),
-              AStateLesssWidget((int val) {
-                print(value);
-                print(val);
-                setState(() {});
-                myDummyFunction();
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  const a = BlueSquare(size: 5);
+  const b = BlueSquare(size: 5);
+  print(a.hashCode);
+  print(b.hashCode);
+  print(a == b);
+  // runApp(MyApp());
 }
 
 class AStateLesssWidget extends StatelessWidget {
-  void Function(int a) callback;
-  AStateLesssWidget(this.callback);
+  // final void Function(int a) callback;
+  // final int a;
+  const AStateLesssWidget();
 
-  void myDummyFunction() {
-    print("IN ASTATLELESSWIDGET");
-  }
+  // void myDummyFunction() {
+  //   print("IN ASTATLELESSWIDGET ${this.hashCode}");
+  // }
 
   @override
   Widget build(BuildContext context) {
     print('AStateLesssWidget BUILD');
     return Container(
-      child: TextButton(
-        onPressed: () {
-          callback(20);
-        },
-        child: Text("BUTTON"),
-      ),
+        // child: TextButton(
+        //   onPressed: () {
+        //     // myDummyFunction();
+        //   },
+        //   child: Text("BUTTON"),
+        // ),
+        );
+  }
+}
+
+class BlueSquare extends StatelessWidget {
+  final double size;
+
+  const BlueSquare({Key? key, required this.size}) : super(key: key);
+
+  Widget build(BuildContext context) {
+    return Container(
+      height: size,
+      width: size,
+      color: Colors.blue,
     );
   }
 }
