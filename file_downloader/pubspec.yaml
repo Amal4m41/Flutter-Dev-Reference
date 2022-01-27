@@ -40,6 +40,7 @@ dependencies:
   path_provider: ^2.0.8 #used to get information about the device specific storage directories.
   permission_handler: ^8.3.0 #to check for permissions.
   open_file: ^3.2.1 #to open files.
+  file_picker: ^4.3.3 #to pick file(s) from the device.
 
 
 dev_dependencies:

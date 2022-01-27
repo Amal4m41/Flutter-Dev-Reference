@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:file_downloader/upload_file_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -59,10 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
           return false;
         }
       } else {
-        //Code for IOS.
+        directory = (await getApplicationDocumentsDirectory());
       }
       //If the directory doesn't exist then create it.
-      if (!await directory!.exists()) {
+      if (!await directory.exists()) {
         await directory.create(recursive: true);
       }
       if (await directory.exists()) {
@@ -120,35 +121,51 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  int currentActive = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentActive,
+          onTap: (index) {
+            currentActive = index;
+            setState(() {});
+          },
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.download), label: 'Download'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.upload_file), label: 'Upload'),
+          ]),
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                downloadFile();
-              },
-              child: const Text(
-                "Download",
-                style: TextStyle(color: Colors.black),
+      body: currentActive == 0
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      downloadFile();
+                    },
+                    child: const Text(
+                      "Download",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.green)),
+                  ),
+                  loading
+                      ? LinearProgressIndicator(
+                          value: progress,
+                        )
+                      : const SizedBox(width: 0, height: 0),
+                ],
               ),
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.green)),
-            ),
-            loading
-                ? LinearProgressIndicator(
-                    value: progress,
-                  )
-                : const SizedBox(width: 0, height: 0),
-          ],
-        ),
-      ),
+            )
+          : const UploadFileScreen(),
     );
   }
 }
