@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:statefulwidget_lifecycle_demo/main3.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,6 +11,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print("FSDLKFJSDL");
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -74,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'You have pushed the button this many times :',
             ),
             Text(
               '$_counter',
@@ -83,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // MyStatelessWidget(_counter),
             MyStatefulWidget(_counter),
             MyStatefulWidget(5),
+            const SimpleStatelessWidget(2),
           ],
         ),
       ),
@@ -111,8 +114,10 @@ class _MyHomePageState extends State<MyHomePage> {
 class MyStatefulWidget extends StatefulWidget {
   final int value;
 
+  // const MyStatefulWidget(this.value);
+
   MyStatefulWidget(this.value) {
-    print('MyStatefulWidget constructor');
+    print('MyStatefulWidget constructor $value');
   }
 
   @override
@@ -124,6 +129,10 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int dummyvalue = 0;
+
+  _MyStatefulWidgetState() {
+    print("state constructor");
+  }
 
   @override
   void initState() {
@@ -155,6 +164,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               child: Text("CLICK ME"))
         ],
       ),
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    print("DISPOSE $dummyvalue");
+  }
+}
+
+class SimpleStatelessWidget extends StatelessWidget {
+  final _countValue;
+  const SimpleStatelessWidget(this._countValue, {Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    print('SimpleStatelessWidget BUILD');
+    return Container(
+      child: Text('Stateless one here! $_countValue'),
     );
   }
 }

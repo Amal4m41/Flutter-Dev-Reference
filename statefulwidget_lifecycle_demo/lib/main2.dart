@@ -88,6 +88,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   @override
+  void didUpdateWidget(covariant MyStatefulWidget oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    print('MyStatefulWidget  didUpdate Widget');
+  }
+
+  @override
   Widget build(BuildContext context) {
     print("MyStatefulWidget BUILD");
     return Container(
@@ -127,6 +134,13 @@ class _WidgetTwoState extends State<WidgetTwo> {
   void initState() {
     super.initState();
     print('WIDGET TWO  initState');
+  }
+
+  @override
+  void didUpdateWidget(covariant WidgetTwo oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    print('WIDGET TWO  didUpdate Widget');
   }
 
   @override
