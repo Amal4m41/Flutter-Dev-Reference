@@ -52,8 +52,7 @@ class Screen2 extends StatelessWidget {
   final String data;
   final onTapCallback callback;
 
-  const Screen2({Key? key, required this.data, required this.callback})
-      : super(key: key);
+  const Screen2({Key? key, required this.data, required this.callback}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     print('Building Screen2');
@@ -69,8 +68,7 @@ class Screen2 extends StatelessWidget {
 class Screen3 extends StatelessWidget {
   final String data;
   final onTapCallback callback;
-  const Screen3({Key? key, required this.data, required this.callback})
-      : super(key: key);
+  const Screen3({Key? key, required this.data, required this.callback}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     print('Building Screen3');
@@ -83,8 +81,7 @@ class Screen3 extends StatelessWidget {
 class Screen4 extends StatelessWidget {
   final String data;
   final onTapCallback callback;
-  const Screen4({Key? key, required this.data, required this.callback})
-      : super(key: key);
+  const Screen4({Key? key, required this.data, required this.callback}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     print('Building Screen4');

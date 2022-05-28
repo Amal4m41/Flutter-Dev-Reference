@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-//Different method/way of doing the same thing as of main2.dart
+//Checking the life of a provider instance.
 
 void main() {
   runApp(MyApp());
@@ -23,16 +23,11 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('Building MainPage');
-    return ChangeNotifierProvider(
-      create: (_) => AppData(),
-      builder: (context, child) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const TextWidgetOne(), //watch is same as Provider.of... with listen = true.
-          ),
-          body: Screen2(),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('sample screen'), //watch is same as Provider.of... with listen = true.
+      ),
+      body: Screen2(),
     );
   }
 }
@@ -88,29 +83,11 @@ class Screen4 extends StatelessWidget {
   Widget build(BuildContext context) {
     print('Building Screen4');
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextWidgetTwo(), //A listener.
-          ElevatedButton(
-            onPressed: () {
-              //context.read is same as Provider.of.. listen is set to 'false'.
-              context.read<AppData>().changeData("Ronaldo");
-            },
-            child: Text("Change data"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              //context.read is same as Provider.of.. listen is set to 'false'.
-              // context.read<AppData>().changeData("Messi");
-              context.read<AppData>().justForFun();
-              String stringValue = context.read<AppData>().name;
-              print('Current value: $stringValue');
-            },
-            child: Text("Notify listeners simply"),
-          ),
-          Screen5(),
-        ],
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Screen5()));
+        },
+        child: Text("Move to new screen"),
       ),
     );
   }
@@ -122,8 +99,35 @@ class Screen5 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('Building Screen5');
-    return Center(
-      child: Text("SIMPLE"),
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => AppData(),
+      builder: (context, _) => Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextWidgetTwo(), //A listener.
+              ElevatedButton(
+                onPressed: () {
+                  //context.read is same as Provider.of.. listen is set to 'false'.
+                  context.read<AppData>().changeData("Ronaldo");
+                },
+                child: Text("Change data"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  //context.read is same as Provider.of.. listen is set to 'false'.
+                  // context.read<AppData>().changeData("Messi");
+                  context.read<AppData>().justForFun();
+                  String stringValue = context.read<AppData>().name;
+                  print('Current value: $stringValue');
+                },
+                child: Text("Notify listeners simply"),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -131,13 +135,23 @@ class Screen5 extends StatelessWidget {
 class AppData with ChangeNotifier {
   String _name = "Neymar";
 
-  void changeData(String value) {
+  AppData() {
+    print('APPDATA constructor');
+  }
+
+  void changeData(String value) async {
     _name = value;
+    await Future.delayed(Duration(seconds: 3));
     notifyListeners();
   }
 
   void justForFun() {
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    print('DISPOSE');
   }
 
   String get name => _name;

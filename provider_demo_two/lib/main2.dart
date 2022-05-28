@@ -24,9 +24,14 @@ class MainPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => AppData(),
       builder: (context, child) {
+        print('change notifier builder');
         return Scaffold(
           appBar: AppBar(
-            title: Text(Provider.of<AppData>(context, listen: true).name),
+            title: Builder(builder: (context) {
+              //just this builder will be re-built.
+              print('builder');
+              return Text(Provider.of<AppData>(context, listen: true).name);
+            }),
           ),
           body: Screen2(),
         );
