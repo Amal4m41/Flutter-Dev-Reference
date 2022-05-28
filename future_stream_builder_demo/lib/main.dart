@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:future_stream_builder_demo/future_builder_demo.dart';
-import 'package:future_stream_builder_demo/stream_builder_demo.dart';
+import 'package:future_stream_builder_demo/future_and_stream_builder/future_builder_demo.dart';
+import 'package:future_stream_builder_demo/stream_demos/stream_broadcast_demo.dart';
+import 'package:future_stream_builder_demo/future_and_stream_builder/stream_builder_demo.dart';
+import 'package:future_stream_builder_demo/stream_demos/stream_demo.dart';
+import 'package:future_stream_builder_demo/stream_demos/stream_demo_three.dart';
+import 'package:future_stream_builder_demo/stream_demos/stream_demo_two.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,9 +33,13 @@ class MyApp extends StatelessWidget {
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       home: Builder(builder: (context) {
         print('BUILDER BUILD');
-        // var height = MediaQuery.of(context).size.height;
+        var height = MediaQuery.of(context).size.height;
         // return FutureBuilderDemo();
-        return StreamBuilderDemo();
+        // return StreamBuilderDemo();
+        return StreamDemo();
+        // return StreamBroadcastDemo();
+        // return StreamDemoTwo();
+        // return StreamDemoThree();
       }),
     );
   }
