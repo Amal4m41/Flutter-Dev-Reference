@@ -24,22 +24,28 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (BuildContext context) => SettingsProvider()),
-        StreamProvider<List<Report>>(
-            create: (BuildContext context) => _fireStoreService.getReports(),
-            initialData: [
-              Report(
-                  temp: 1,
-                  wax: 'Swix',
-                  line: 'Red',
-                  timeStamp: DateTime.now().toIso8601String())
-            ]),
-        FutureProvider<List<Employee>?>(
-          create: (BuildContext context) => _employeeService.fetchEmployees(),
-          initialData: null,
+          create: (BuildContext context) => SettingsProvider(),
           lazy: true,
+        ),
+        StreamProvider<List<Report>>(
+          create: (BuildContext context) => _fireStoreService.getReports(),
+          lazy: true,
+          initialData: [
+            Report(
+              temp: 1,
+              wax: 'Swix',
+              line: 'Red',
+              timeStamp: DateTime.now().toIso8601String(),
+            ),
+          ],
+        ),
+        FutureProvider<Result<List<Employee>?>>(
+          create: (BuildContext context) => _employeeService.fetchEmployees(),
+          initialData: Result(data: null),
+          lazy: false,
           catchError: (context, error) {
             print(error.toString());
+            return Result(data: null, errorMsg: 'Error here : $error');
           },
         ),
       ],

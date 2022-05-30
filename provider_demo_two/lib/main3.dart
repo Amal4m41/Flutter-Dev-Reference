@@ -24,15 +24,18 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     print('Building MainPage');
     return ChangeNotifierProvider(
-      create: (_) => AppData(),
-      builder: (context, child) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const TextWidgetOne(), //watch is same as Provider.of... with listen = true.
-          ),
-          body: Screen2(),
-        );
-      },
+      create: (_) => AppDataDifferent(),
+      child: ChangeNotifierProvider(
+        create: (_) => AppData(),
+        builder: (context, child) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const TextWidgetOne(), //watch is same as Provider.of... with listen = true.
+            ),
+            body: Screen2(),
+          );
+        },
+      ),
     );
   }
 }
@@ -109,6 +112,22 @@ class Screen4 extends StatelessWidget {
             },
             child: Text("Notify listeners simply"),
           ),
+          Container(
+            height: 10,
+            width: double.infinity,
+            color: Colors.red,
+          ),
+          Builder(builder: (context) {
+            print('new app data listener widget text');
+            return Text(context.watch<AppDataDifferent>().name);
+          }),
+          ElevatedButton(
+            onPressed: () {
+              //context.read is same as Provider.of.. listen is set to 'false'.
+              context.read<AppDataDifferent>().changeData("BBB");
+            },
+            child: Text("Notify listeners of AppDataDifferent"),
+          ),
           Screen5(),
         ],
       ),
@@ -130,6 +149,21 @@ class Screen5 extends StatelessWidget {
 
 class AppData with ChangeNotifier {
   String _name = "Neymar";
+
+  void changeData(String value) {
+    _name = value;
+    notifyListeners();
+  }
+
+  void justForFun() {
+    notifyListeners();
+  }
+
+  String get name => _name;
+}
+
+class AppDataDifferent with ChangeNotifier {
+  String _name = "AAA";
 
   void changeData(String value) {
     _name = value;

@@ -20,6 +20,7 @@ class EmployeeDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("EMPOYEE DETAILS SCREEN BUILD");
+    MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(name),
@@ -34,17 +35,12 @@ class EmployeeDetailsScreen extends StatelessWidget {
             print("EMPOYEE DETAILS SCREEN CONSUMER BUILD");
             return Column(
               children: [
-                employee == null
-                    ? CircularProgressIndicator()
-                    : Text('Phone Number : ${employee.phone}'),
+                employee == null ? CircularProgressIndicator() : Text('Phone Number : ${employee.phone}'),
                 Expanded(
                   child: ListView.builder(
-                    itemCount:
-                        Provider.of<List<Employee>>(context, listen: true)
-                            .length,
+                    itemCount: Provider.of<Result<List<Employee>?>>(context, listen: true).data!.length,
                     itemBuilder: (context, int index) {
-                      List<Employee> employee =
-                          Provider.of<List<Employee>>(context, listen: true);
+                      List<Employee> employee = Provider.of<Result<List<Employee>?>>(context, listen: true).data!;
                       print('Reports value here : $employee');
                       return ListTile(
                         title: Text(employee[index].name),

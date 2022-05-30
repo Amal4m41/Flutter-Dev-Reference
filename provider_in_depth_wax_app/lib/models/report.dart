@@ -26,4 +26,9 @@ class Report {
         line: json['line'] as String,
         timeStamp: json['timeStamp'] as String,
       );
+
+  @override
+  String toString() {
+    return '[temp:$temp, wax:$wax, line:$line, timeStamp:$timeStamp]';
+  }
 }

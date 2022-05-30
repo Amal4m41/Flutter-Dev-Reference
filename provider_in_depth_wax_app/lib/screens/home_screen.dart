@@ -90,51 +90,50 @@ class ListViewReport extends StatelessWidget {
     reports = reports.where((report) => waxLine.contains(report.wax)).toList();
     print("AFTER FILTERING : $reports");
     return ListView.builder(
-        itemCount: reports.length,
-        itemBuilder: (BuildContext context, int index) {
-          Report item = reports[index];
-          return ListTile(
-            leading: units == "Metric"
-                ? Text(item.temp.toString() + '\u00B0')
-                : Text(
-                    ((item.temp) * (9 / 5) + 32).toStringAsFixed(1) + '\u00B0'),
-            title: Text(item.wax),
-            subtitle: Text(item.line),
-            trailing: Text(formatDate(
-                DateTime.parse(item.timeStamp), [h, ':', nn, ' ', am])),
-          );
-        });
-  }
-}
-
-class ListViewEmployee extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    //Access the future provider.
-    List<Employee>? empList = Provider.of<List<Employee>?>(context);
-
-    return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        child: empList == null
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: empList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Employee item = empList[index];
-                  return ListTile(
-                    leading: Text(item.id.toString()),
-                    title: Text(item.name),
-                    subtitle: Text(item.email),
-                    trailing: Text(item.phone),
-                  );
-                },
-              ),
-      ),
+      itemCount: reports.length,
+      itemBuilder: (BuildContext context, int index) {
+        Report item = reports[index];
+        return ListTile(
+          leading: units == "Metric"
+              ? Text(item.temp.toString() + '\u00B0')
+              : Text(((item.temp) * (9 / 5) + 32).toStringAsFixed(1) + '\u00B0'),
+          title: Text(item.wax),
+          subtitle: Text(item.line),
+          trailing: Text(formatDate(DateTime.parse(item.timeStamp), [h, ':', nn, ' ', am])),
+        );
+      },
     );
   }
 }
+
+// class ListViewEmployee extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     //Access the future provider.
+//     List<Employee>? empList = Provider.of<List<Employee>?>(context);
+//
+//     return Scaffold(
+//       appBar: AppBar(),
+//       body: Container(
+//         child: empList == null
+//             ? Center(child: CircularProgressIndicator())
+//             : ListView.builder(
+//                 scrollDirection: Axis.horizontal,
+//                 itemCount: empList.length,
+//                 itemBuilder: (BuildContext context, int index) {
+//                   Employee item = empList[index];
+//                   return ListTile(
+//                     leading: Text(item.id.toString()),
+//                     title: Text(item.name),
+//                     subtitle: Text(item.email),
+//                     trailing: Text(item.phone),
+//                   );
+//                 },
+//               ),
+//       ),
+//     );
+//   }
+// }
 
 void navigateTo(BuildContext contextValue, Widget widget) {
   Navigator.push(

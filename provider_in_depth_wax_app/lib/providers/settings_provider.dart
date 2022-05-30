@@ -40,6 +40,7 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   void loadPreferences() async {
+    // await Future.delayed(Duration(seconds: 4));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? unitsValue = prefs.getString("units");
     List<String>? waxLinesValue = prefs.getStringList("waxLines");

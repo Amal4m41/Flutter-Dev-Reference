@@ -100,35 +100,37 @@ class Screen5 extends StatelessWidget {
   Widget build(BuildContext context) {
     print('Building Screen5');
     return ChangeNotifierProvider(
-      create: (BuildContext context) => AppData(),
-      builder: (context, _) => Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextWidgetTwo(), //A listener.
-              ElevatedButton(
-                onPressed: () {
-                  //context.read is same as Provider.of.. listen is set to 'false'.
-                  context.read<AppData>().changeData("Ronaldo");
-                },
-                child: Text("Change data"),
+        create: (context) => AppData(),
+        builder: (context, _) {
+          print('change notifier build');
+          return Scaffold(
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextWidgetTwo(), //A listener.
+                  ElevatedButton(
+                    onPressed: () {
+                      //context.read is same as Provider.of.. listen is set to 'false'.
+                      context.read<AppData>().changeData("Ronaldo");
+                    },
+                    child: Text("Change data"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      //context.read is same as Provider.of.. listen is set to 'false'.
+                      // context.read<AppData>().changeData("Messi");
+                      context.read<AppData>().justForFun();
+                      String stringValue = context.read<AppData>().name;
+                      print('Current value: $stringValue');
+                    },
+                    child: Text("Notify listeners simply"),
+                  ),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () {
-                  //context.read is same as Provider.of.. listen is set to 'false'.
-                  // context.read<AppData>().changeData("Messi");
-                  context.read<AppData>().justForFun();
-                  String stringValue = context.read<AppData>().name;
-                  print('Current value: $stringValue');
-                },
-                child: Text("Notify listeners simply"),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+        });
   }
 }
 

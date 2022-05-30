@@ -8,7 +8,7 @@ class FirestoreService {
   FirebaseFirestore _firestoreDB = FirebaseFirestore.instance;
 
   Stream<List<Report>> getReports() {
-    print("CALLED");
+    print("CALLED GET REPORTS");
     return _firestoreDB
         .collection('reports')
         .orderBy('timeStamp', descending: true)
