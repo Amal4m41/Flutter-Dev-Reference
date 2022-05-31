@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
         print('BUILDER BUILD');
         var height = MediaQuery.of(context).size.height;
         // return FutureBuilderDemo();
-        // return StreamBuilderDemo();
-        return StreamDemo();
+        return StreamBuilderDemo();
+        // return StreamDemo();
         // return StreamBroadcastDemo();
         // return StreamDemoTwo();
         // return StreamDemoThree();

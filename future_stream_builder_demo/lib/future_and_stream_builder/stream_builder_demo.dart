@@ -59,7 +59,7 @@ class _FutureBuilderDemoState extends State<StreamBuilderDemo> {
                           'Data: ${snapshot.data}\n');
                 // case ConnectionState
                 //     .active: //in active state once we receive the first value of a stream and till the stream is
-                //   //finished(till the last value is returned, which is the connectionstate.done state).
+                //   //finished(till the last value(last value is not caught here) is returned, which is the connectionstate.done state).
                 //   if (snapshot.hasError) {
                 //     return Text('Error ${snapshot.error}');
                 //   } else if (snapshot.hasData) {
